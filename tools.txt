@@ -1,0 +1,14 @@
+nmap
+rustscan
+metasploit-framework
+python3-impacket
+hashcat
+john
+hydra
+proxychains
+sshuttle
+xfreerdp
+xsser
+wpscan
+evil-winrm
+whatweb

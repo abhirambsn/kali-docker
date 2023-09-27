@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  app:
+    image: kali-custom:latest
+    privileged: true
+    hostname: kali-container
+    restart: unless-stopped
+    volumes:
+      - ./kali-vol:/home/abhirambsn:rw
+    
