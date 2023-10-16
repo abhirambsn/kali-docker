@@ -1,10 +1,32 @@
 version: '3.8'
 services:
-  app:
-    image: kali-custom:latest
+  kali:
+    image: abhirambsn/kali-custom:latest
     privileged: true
-    hostname: kali-container
+    hostname: kali
     restart: unless-stopped
     volumes:
       - ./kali-vol:/home/abhirambsn:rw
-    
+    networks:
+      kali-net:
+        ipv4_address: 10.0.0.2
+  kracker:
+    image: abhirambsn/kracking:latest
+    privileged: true
+    hostname: kracker
+    restart: unless-stopped
+    networks:
+      kali-net:
+        ipv4_address: 10.0.0.3
+  penbuntu:
+    image: abhirambsn/penbuntu:latest
+    privileged: true
+    hostname: penbuntu
+    restart: unless-stopped
+    networks:
+      kali-net:
+        ipv4_address: 10.0.0.4
+
+networks:
+  kali-net:
+    external: true

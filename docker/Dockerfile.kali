@@ -1,0 +1,34 @@
+FROM kalilinux/kali-rolling
+
+ARG gid
+ARG uid
+ARG group
+ARG user
+
+# Update packages and upgrade system
+
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get -y dist-upgrade && \
+    apt-get -y autoremove && \
+    apt-get -y clean && apt-get install -y sudo git zsh tmux kali-tools-top10 feroxbuster nmap metasploit-framework \
+    python3-impacket hashcat john hydra proxychains sshuttle xsser wpscan evil-winrm whatweb nikto apktool dex2jar \
+    dirb man-db steghide theharvester lsof iputils-ping dnsmap dnsrecon smbclient smbmap crackmapexec openssh-server && \
+    groupadd -g ${gid} ${group} && useradd -m -u ${uid} -g ${gid} -G ${group} -s /usr/bin/zsh ${user} && \
+    echo "${user}    ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    git clone https://github.com/gpakosz/.tmux.git "/home/${user}/.oh-my-tmux" && \
+    mkdir -p "/home/${user}/.config/tmux" && \
+    ln -s "/home/${user}/.oh-my-tmux/.tmux.conf" "/home/${user}/.config/tmux/tmux.conf" && \
+    chown -R ${user}:${group} /home/${user} && \
+    ssh-keygen -A
+
+COPY --chown=${user}:${group} ./dotfiles/.tmux.conf.local "/home/${user}/.config/tmux/tmux.conf.local"
+COPY --chown=${user}:${group} .keys/id_rsa /home/${user}/.ssh/id_rsa
+COPY --chown=${user}:${group} .keys/id_rsa.pub /home/${user}/.ssh/id_rsa.pub
+
+RUN chmod 600 /home/${user}/.ssh/id_rsa && \
+    cat /home/${user}/.ssh/id_rsa.pub >> /home/${user}/.ssh/authorized_keys && \
+    chown -R ${user}:${group} /home/${user} && \
+    mkdir /run/sshd
+
+ENTRYPOINT ["/usr/sbin/sshd", "-D"]

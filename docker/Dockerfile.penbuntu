@@ -1,0 +1,20 @@
+FROM ubuntu:latest
+
+ARG user=penbuntu
+
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get -y install sudo openssh-server net-tools iputils-ping nginx && \
+    apt-get clean autoclean && \
+    apt-get -y autoremove && \
+    rm  -rf /var/lib/{apt,dpkg,cache,log}/ && \
+    useradd -m -s /usr/bin/bash ${user} && \
+    echo "${user}    ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    mkdir /var/run/sshd && mkdir -p /home/${user}/.ssh && \
+    ssh-keygen -A && \
+    echo "export HOME=/home/${user}" >> /home/${user}/.bashrc 
+# && echo 'export PS1="\[\e[31m\]\u\[\e[m\]\[\e[31m\]@\[\e[m\]\[\e[31m\]\h\[\e[m\]\[\e[31m\]:\[\e[m\]\w\\$ "' >> /root/.bashrc
+COPY --chown=${user}:${group} .keys/id_rsa.pub /home/${user}/.ssh/authorized_keys
+EXPOSE 22 80 8000
+
+ENTRYPOINT ["/usr/sbin/sshd", "-D"]

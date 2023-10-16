@@ -1,0 +1,15 @@
+FROM debian:latest
+
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get -y install sudo hashcat hydra openssh-server net-tools iputils-ping && \
+    apt-get clean autoclean && \
+    apt-get -y autoremove && \
+    rm  -rf /var/lib/{apt,dpkg,cache,log}/ && \
+    mkdir /var/run/sshd && mkdir -p /root/.ssh && \
+    ssh-keygen -A && \
+    echo "export HOME=/root" >> /root/.bashrc && echo 'export PS1="\[\e[31m\]\u\[\e[m\]\[\e[31m\]@\[\e[m\]\[\e[31m\]\h\[\e[m\]\[\e[31m\]:\[\e[m\]\w\\$ "' >> /root/.bashrc
+COPY .keys/id_rsa.pub /root/.ssh/authorized_keys
+EXPOSE 22
+
+ENTRYPOINT ["/usr/sbin/sshd", "-D"]
