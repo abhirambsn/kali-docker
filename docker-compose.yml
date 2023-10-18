@@ -6,7 +6,7 @@ services:
     hostname: kali
     restart: unless-stopped
     volumes:
-      - ./kali-vol:/home/abhirambsn:rw
+      - ./kali-vol:/opt/devstorage:rw
     networks:
       kali-net:
         ipv4_address: 10.0.0.2
