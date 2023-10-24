@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get -y dist-upgrade && \
     apt-get -y autoremove && \
     apt-get -y clean && apt-get install -y sudo git zsh tmux kali-tools-top10 feroxbuster nmap metasploit-framework \
-    python3-impacket hashcat john hydra proxychains sshuttle xsser wpscan evil-winrm whatweb nikto apktool dex2jar \
+    python3-impacket hashcat john hydra proxychains sshuttle xsser wpscan evil-winrm whatweb nikto apktool dex2jar jq wget \
     dirb man-db steghide theharvester lsof iputils-ping dnsmap dnsrecon smbclient smbmap crackmapexec openssh-server && \
     groupadd -g ${gid} ${group} && useradd -m -u ${uid} -g ${gid} -G ${group} -s /usr/bin/zsh ${user} && \
     echo "${user}    ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers && \

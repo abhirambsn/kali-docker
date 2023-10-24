@@ -12,3 +12,5 @@ xsser
 wpscan
 evil-winrm
 whatweb
+jq
+wget
