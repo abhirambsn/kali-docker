@@ -1,10 +1,14 @@
 #!/bin/bash
 
+GREEN=`tput setaf 2 bold`
+RED=`tput setaf 1 bold`
+RESET=`tput sgr0`
+
 command_exists() {
   if command -v "$1" &>/dev/null; then
-    echo "Command '$1' exists"
+    echo "$GREEN[+] Command '$1' exists$RESET"
   else
-    echo "Command '$1' does not exist, install $1 to continue"
+    echo "$RED[x] Command '$1' does not exist, install $1 to continue$RESET"
     exit 1
   fi
 }
