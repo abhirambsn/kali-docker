@@ -11,7 +11,7 @@ or you can use our readymade `setup.sh` script for the same
 ### Pre-requisites
 Ensure that the following are installed before proceeding with any of the installation methods:
 
-1. Docker
+1. Docker Engine or Docker Desktop (WSL2 Backend required for Windows Hosts)
 2. Docker Compose
 3. Python
 4. Poetry
