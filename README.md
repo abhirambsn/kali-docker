@@ -10,7 +10,7 @@ or you can use our readymade `setup.sh` script for the same
 
 ### Automated Script
 ```bash
-wget https://raw.githubusercontent.com/abhirambsn/setup.sh | bash
+wget https://raw.githubusercontent.com/abhirambsn/kali-docker/main/setup.sh | bash
 ```
 
 ### Manual Way
