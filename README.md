@@ -14,11 +14,36 @@ curl https://raw.githubusercontent.com/abhirambsn/kali-docker/main/setup.sh | ba
 ```
 
 ### Manual Way
+
+#### Pre-requisites
+1. Docker
+2. Docker Compose
+3. Poetry
+4. Git
+
+#### Clone the Repository
 ```bash
 git clone https://github.com/abhirambsn/kali-docker.git
-cd kali-docker/kalictl
-poetry install # Install script and dependencies
+```
 
+#### Install Script and Dependencies using poetry
+
+*Install poetry before executing this section*
+
+```bash
+cd kali-docker/kalictl
+poetry install
+```
+
+#### Create a Docker Network with name kali-net and subnet 10.0.0.0/16
+
+```bash
+docker network create kali-net --subnet=10.0.0.0/16
+```
+
+#### Use the installed kalictl to initialize, build and start the containers
+
+```bash
 kalictl init # Initialize config
 kalictl build # Build Images
 kalictl start # Start the compose stack
