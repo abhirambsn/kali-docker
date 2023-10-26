@@ -58,7 +58,7 @@ class DockerHandler:
         self.stack_state = self.states['running']
         self.username = config.get_config_entry('username')
 
-        self.base_script_path = Path(__file__).parent.parent.parent.parent
+        self.base_script_path = Path(config.get_config_entry('docker_root'))
     
     def get_ip_address(self, container_name: str) -> str:
         container = self.client.containers.get(container_name)

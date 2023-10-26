@@ -28,7 +28,7 @@ def init(
     """
     Initializes the config file for future references
     """
-    app_init_error = config.init_app(username)
+    app_init_error = config.init_app(username, root_path)
     if app_init_error:
         typer.secho(
             f'Creating config file failed with "{ERRORS[app_init_error]}"',

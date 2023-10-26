@@ -20,16 +20,17 @@ def add_config_entry(key: str, value: str, if_exists_ok = True) -> bool:
         config.write(configfile)
     return SUCCESS
 
-def init_app(username: str) -> int:
+def init_app(username: str, root_path: str) -> int:
     config_code = _init_config_file()
     if config_code != SUCCESS:
         return config_code
     if not username.isalnum():
         return FILE_ERROR
     u_entry = add_config_entry('username', username)
+    r_entry = add_config_entry('docker_root', root_path)
     p_storage_path = Path(f"/Users/{os.getenv('USER')}/.kali")
     p_storage_path.mkdir(exist_ok=True)
-    return SUCCESS if u_entry == SUCCESS else FILE_ERROR
+    return SUCCESS if u_entry == SUCCESS and r_entry == SUCCESS else FILE_ERROR
 
 def _init_config_file() -> int:
     try:
