@@ -11,7 +11,7 @@ command_exists() {
 
 # Check if required dependencies exist
 command_exists git
-coomand_exists poetry
+command_exists poetry
 
 git_path=$(command -v git)
 poetry_path=$(command -v poetry)
