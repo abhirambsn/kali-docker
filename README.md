@@ -29,13 +29,15 @@ curl https://raw.githubusercontent.com/abhirambsn/kali-docker/main/setup.sh | ba
 git clone https://github.com/abhirambsn/kali-docker.git
 ```
 
-#### Install Script and Dependencies using poetry
+#### Install Script and Dependencies using poetry & pip
 
 *Install poetry before executing this section*
 
 ```bash
 cd kali-docker/kalictl
 poetry install
+poetry build
+pip3 install dist/*.whl
 ```
 
 #### Create a Docker Network with name kali-net and subnet 10.0.0.0/16

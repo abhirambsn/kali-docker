@@ -5,6 +5,7 @@ import typer
 import os
 from kalictl import __app_name__, __version__, config, ERRORS
 from kalictl.handler import DockerHandler
+from pathlib import Path
 
 app = typer.Typer()
 handler = DockerHandler()
@@ -16,6 +17,12 @@ def init(
         '--username',
         '-u',
         prompt="Enter Username of Kali Container"
+    ),
+    root_path: str = typer.Option(
+        str(Path(os.getenv('HOME')) / 'kali-docker'),
+        '--root-path',
+        '-r',
+        prompt="Enter Root Path of Kali Container"
     )
 ) -> None:
     """
