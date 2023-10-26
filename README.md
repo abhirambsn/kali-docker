@@ -8,18 +8,21 @@ Follow the below instructions on your terminal to get setup with the tool.
 
 or you can use our readymade `setup.sh` script for the same
 
+### Pre-requisites
+Ensure that the following are installed before proceeding with any of the installation methods:
+
+1. Docker
+2. Docker Compose
+3. Python
+4. Poetry
+5. Git
+
 ### Automated Script
 ```bash
 curl https://raw.githubusercontent.com/abhirambsn/kali-docker/main/setup.sh | bash
 ```
 
 ### Manual Way
-
-#### Pre-requisites
-1. Docker
-2. Docker Compose
-3. Poetry
-4. Git
 
 #### Clone the Repository
 ```bash
