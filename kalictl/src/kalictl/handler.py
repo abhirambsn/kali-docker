@@ -149,7 +149,10 @@ class DockerHandler:
             return False
         cmd = f'docker compose exec -u {self.username} -it {container_name} {command}'
         try:
+            original_cwd = os.getcwd()
+            os.chdir(self.base_script_path)
             os.system(cmd)
+            os.chdir(original_cwd)
             return True
         except Exception as e:
             print(get_colored_str(f"[-] Failed to execute command with error: {e}", "RED"))
