@@ -115,6 +115,18 @@ def cp(
     else:
         handler.copy_to_stack(src_path, dest_path, container_name)
 
+@app.command()
+def ip(
+    container_name: str = typer.Argument(
+       ...,
+        help="Container to get IP Address of"
+    )
+) -> None:
+    """
+    Gets the IP of the container
+    """
+    print(handler.get_ip_address(f'kali-docker-{container_name}-1'))
+
 
 def _version_callback(value: bool) -> None:
     if value:
