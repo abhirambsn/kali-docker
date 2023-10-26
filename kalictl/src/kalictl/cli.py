@@ -8,7 +8,7 @@ from kalictl.handler import DockerHandler
 from pathlib import Path
 
 app = typer.Typer()
-handler = DockerHandler()
+handler = None
 
 @app.command()
 def init(
@@ -43,6 +43,7 @@ def start() -> None:
     """
     Starts the stack
     """
+    handler = DockerHandler()
     handler.start_stack()
 
 @app.command()
@@ -50,6 +51,7 @@ def stop() -> None:
     """
     Stops the stack
     """
+    handler = DockerHandler()
     handler.stop_stack()
 
 @app.command()
@@ -57,6 +59,7 @@ def restart() -> None:
     """
     Restarts the stack
     """
+    handler = DockerHandler()
     handler.restart_stack()
 
 @app.command()
@@ -64,6 +67,7 @@ def build() -> None:
     """
     Builds the Docker images in the stack
     """
+    handler = DockerHandler()
     handler.build_stack()
 
 @app.command()
@@ -71,6 +75,7 @@ def status() -> None:
     """
     Shows the status of the stack
     """
+    handler = DockerHandler()
     handler.get_stack_state()
 
 @app.command()
@@ -89,6 +94,7 @@ def exec(
     """
     Executes a command in the container
     """
+    handler = DockerHandler()
     handler.exec_in_stack(command, container_name)
 
 @app.command()
@@ -117,6 +123,7 @@ def cp(
     """
     Copies files from the host to the container or vice versa
     """
+    handler = DockerHandler()
     if reverse:
         handler.copy_from_stack(src_path, dest_path, container_name)
     else:
@@ -132,6 +139,7 @@ def ip(
     """
     Gets the IP of the container
     """
+    handler = DockerHandler()
     print(handler.get_ip_address(f'kali-docker-{container_name}-1'))
 
 
