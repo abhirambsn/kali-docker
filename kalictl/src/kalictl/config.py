@@ -26,6 +26,8 @@ def init_app(username: str, root_path: str) -> int:
         return config_code
     if not username.isalnum():
         return FILE_ERROR
+    if not os.path.exists(root_path):
+        return DIR_ERROR
     u_entry = add_config_entry('username', username)
     r_entry = add_config_entry('docker_root', root_path)
     p_storage_path = Path(f"/Users/{os.getenv('USER')}/.kali")
