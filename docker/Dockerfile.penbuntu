@@ -14,7 +14,7 @@ RUN apt-get update && \
     ssh-keygen -A && \
     echo "export HOME=/home/${user}" >> /home/${user}/.bashrc 
 # && echo 'export PS1="\[\e[31m\]\u\[\e[m\]\[\e[31m\]@\[\e[m\]\[\e[31m\]\h\[\e[m\]\[\e[31m\]:\[\e[m\]\w\\$ "' >> /root/.bashrc
-COPY --chown=${user}:${group} .keys/id_rsa.pub /home/${user}/.ssh/authorized_keys
+COPY --chown=${user}:${user} .keys/id_rsa.pub /home/${user}/.ssh/authorized_keys
 EXPOSE 22 80 8000
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
