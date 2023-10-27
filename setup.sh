@@ -55,7 +55,7 @@ fi
 git_path=$(command -v git)
 poetry_path=$(command -v poetry)
 docker_path=$(command -v docker)
-os=get_os
+os=$(get_os)
 
 $git_path clone https://github.com/abhirambsn/kali-docker.git $HOME/kali-docker
 cd kali-docker/kalictl
