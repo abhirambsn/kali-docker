@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   kali:
-    image: abhirambsn/kali-custom:latest
+    image: kalictl/kali-custom:latest
     privileged: true
     hostname: kali
     restart: unless-stopped
@@ -11,7 +11,7 @@ services:
       kali-net:
         ipv4_address: 10.0.0.2
   kracker:
-    image: abhirambsn/kracking:latest
+    image: kalictl/kracking:latest
     privileged: true
     hostname: kracker
     restart: unless-stopped
@@ -19,7 +19,7 @@ services:
       kali-net:
         ipv4_address: 10.0.0.3
   penbuntu:
-    image: abhirambsn/penbuntu:latest
+    image: kalictl/penbuntu:latest
     privileged: true
     hostname: penbuntu
     restart: unless-stopped
