@@ -18,8 +18,18 @@ Ensure that the following are installed before proceeding with any of the instal
 5. Git
 
 ### Automated Script
+
+#### Linux / Unix / Mac Hosts
+
 ```bash
 curl https://raw.githubusercontent.com/abhirambsn/kali-docker/main/setup.sh | bash
+```
+
+#### Windows Hosts (via Powershell)
+
+```powershell
+iwr -Uri "https://raw.githubusercontent.com/abhirambsn/kali-docker/main/install.ps1" -UseBasicParsing | iex
+
 ```
 
 ### Manual Way
