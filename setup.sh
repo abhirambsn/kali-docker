@@ -32,9 +32,9 @@ get_os() {
   fi
 }
 
-is_pip = 0
-is_pip3 = 0
-is_pipx = 0
+is_pip=0
+is_pip3=0
+is_pipx=0
 
 # Check if required dependencies exist
 command_exists git
