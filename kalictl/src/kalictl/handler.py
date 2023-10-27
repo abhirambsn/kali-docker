@@ -12,7 +12,7 @@ VALID_CONTAINERS = ['kali', 'kracker', 'penbuntu']
 def get_colored_str(text: str, color: str) -> str:
     return getattr(colorama.Fore, color)+text+colorama.Fore.RESET
 
-def setup_ssh_keys() -> int:
+def setup_ssh_keys(base_path: Path) -> int:
     current_user = os.getenv('USER')
     ssh_dir = Path.home() / '.ssh'
     try:
@@ -24,7 +24,7 @@ def setup_ssh_keys() -> int:
                 subprocess.check_output(['chmod', '600', str(ssh_dir / 'id_rsa')], user=current_user)
                 print(get_colored_str("Created RSA Key Pair", "GREEN"))
             # Copy the id_rsa file to .keys folder using copy, if .keys does not exist, create it
-            dest_path = Path(__file__).parent.parent.parent.parent / '.keys'
+            dest_path = base_path / '.keys'
             if not os.path.exists(dest_path):
                 dest_path.mkdir()
                 print(get_colored_str("[*] Created .keys folder", "LIGHTGREEN_EX"))
@@ -65,7 +65,7 @@ class DockerHandler:
         return container.attrs['NetworkSettings']['Networks']['kali-net']['IPAddress']
     
     def build_stack(self, rebuild_if_exists = False):
-        setup_ssh_key = setup_ssh_keys()
+        setup_ssh_key = setup_ssh_keys(self.base_script_path)
         if setup_ssh_key != SUCCESS:
             print(get_colored_str(f"[-] Failed to setup SSH Keys with error: {ERRORS[setup_ssh_key]}", "RED"))
             sys.exit(1)
@@ -73,10 +73,10 @@ class DockerHandler:
 
         print(get_colored_str("[*] Building Kali Linux Image...", "CYAN"))
         kali_img = self.client.images.build(
-            path = str(self.base_script_path / 'docker'),
+            path = str(self.base_script_path),
             tag = 'kalictl/kali:latest',
             rm = True,
-            dockerfile = 'Dockerfile.kali',
+            dockerfile = 'docker/Dockerfile.kali',
             buildargs = {
                 'user': self.username,
                 'group': self.username,
@@ -90,10 +90,10 @@ class DockerHandler:
         print(get_colored_str("[*] Building Kracker Box Image...", "CYAN"))
 
         kracker_img = self.client.images.build(
-            path = str(self.base_script_path / 'docker'),
+            path = str(self.base_script_path),
             tag = 'kalictl/kracker:latest',
             rm = True,
-            dockerfile = 'Dockerfile.kracker',
+            dockerfile = 'docker/Dockerfile.kracker',
             forcerm = True
         )
 
@@ -101,10 +101,10 @@ class DockerHandler:
         print(get_colored_str("[*] Building Penbuntu Image...", "CYAN"))
 
         penbuntu_img = self.client.images.build(
-            path = str(self.base_script_path / 'docker'),
+            path = str(self.base_script_path),
             tag = 'kalictl/penbuntu:latest',
             rm = True,
-            dockerfile = 'Dockerfile.penbuntu',
+            dockerfile = 'docker/Dockerfile.penbuntu',
             buildargs = {
                 'user': self.username
             },
