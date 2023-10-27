@@ -30,7 +30,7 @@ def init_app(username: str, root_path: str) -> int:
         return DIR_ERROR
     u_entry = add_config_entry('username', username)
     r_entry = add_config_entry('docker_root', root_path)
-    p_storage_path = Path(f"/Users/{os.getenv('USER')}/.kali")
+    p_storage_path = Path(f"{os.getenv('HOME')}/.kali")
     p_storage_path.mkdir(exist_ok=True)
     return SUCCESS if u_entry == SUCCESS and r_entry == SUCCESS else FILE_ERROR
 
