@@ -6,10 +6,11 @@ RESET=`tput sgr0`
 
 command_exists() {
   if command -v "$1" &>/dev/null; then
-    echo "$GREEN[+] Command '$1' exists$RESET"
+    echo "$GREEN[+] Command '$1' is available at $(command -v "$1")$RESET"
+    return 1
   else
     echo "$RED[x] Command '$1' does not exist, install $1 to continue$RESET"
-    exit 1
+    return 0
   fi
 }
 
@@ -17,16 +18,28 @@ command_exists() {
 command_exists git
 command_exists poetry
 command_exists docker
+command_exists pip
+is_pip=$?
+command_exists pip3
+is_pip3=$?
 
 git_path=$(command -v git)
 poetry_path=$(command -v poetry)
 docker_path=$(command -v docker)
 
+
 $git_path clone https://github.com/abhirambsn/kali-docker.git $HOME/kali-docker
 cd kali-docker/kalictl
 $poetry_path install # Install script and dependencies
 $poetry_path build # Build Dependencies
-$(command -v pip3) install dist/*.whl
+if $is_pip; then
+  $(command -v pip) install dist/*.whl
+elif $is_pip3; then
+  $(command -v pip3) install dist/*.whl
+else
+  echo "$RED[x] pip or pip3 not found, install either of them to continue$RESET"
+  exit 1
+fi
 kalictl_path=$(command -v kalictl)
 
 # Create a docker network with name kali-net and subnet 10.0.0.0/16
