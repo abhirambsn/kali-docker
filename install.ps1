@@ -1,8 +1,3 @@
-# Define ANSI color codes for text formatting
-$GREEN = [char]27 + '[32;1m'
-$RED = [char]27 + '[31;1m'
-$RESET = [char]27 + '[0m'
-
 Function Test-Command {
     param (
         [string]$CommandName
