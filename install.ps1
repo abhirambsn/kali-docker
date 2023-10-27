@@ -30,7 +30,7 @@ $poetryPath = Get-Command -Name "poetry" | Select-Object -ExpandProperty Source
 $dockerPath = Get-Command -Name "docker" | Select-Object -ExpandProperty Source
 
 & $gitPath clone https://github.com/abhirambsn/kali-docker.git $env:HOME/kali-docker
-cd $env:HOME/kali-docker/kalictl
+Set-Location $env:HOME/kali-docker/kalictl
 & $poetryPath install  # Install script and dependencies
 & $poetryPath build  # Build Dependencies
 if ($pip) {
