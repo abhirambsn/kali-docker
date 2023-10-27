@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   kali:
-    image: kalictl/kali-custom:latest
+    image: kalictl/kali:latest
     privileged: true
     hostname: kali
     restart: unless-stopped
@@ -11,7 +11,7 @@ services:
       kali-net:
         ipv4_address: 10.0.0.2
   kracker:
-    image: kalictl/kracking:latest
+    image: kalictl/kracker:latest
     privileged: true
     hostname: kracker
     restart: unless-stopped
