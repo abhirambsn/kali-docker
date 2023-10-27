@@ -63,7 +63,7 @@ $poetry_path install # Install script and dependencies
 $poetry_path build # Build Dependencies
 
 echo "OS -> $os"
-if [[ $os -ne "linux" ]]; then
+if [[ $os != "linux" ]]; then
   if [[ $is_pip -eq 1 ]]; then
     $(command -v pip) install dist/*.whl
   elif [[ $is_pip3 -eq 1 ]]; then
