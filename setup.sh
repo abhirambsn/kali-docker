@@ -32,9 +32,9 @@ get_os() {
   fi
 }
 
-is_pip = 0
-is_pip3 = 0
-is_pipx = 0
+$is_pip = 0
+$is_pip3 = 0
+$is_pipx = 0
 
 # Check if required dependencies exist
 command_exists git
@@ -55,13 +55,15 @@ fi
 git_path=$(command -v git)
 poetry_path=$(command -v poetry)
 docker_path=$(command -v docker)
-
+os=get_os
 
 $git_path clone https://github.com/abhirambsn/kali-docker.git $HOME/kali-docker
 cd kali-docker/kalictl
 $poetry_path install # Install script and dependencies
 $poetry_path build # Build Dependencies
-if [[ $(get_os) -ne "linux" ]]; then
+
+echo "OS -> $os"
+if [[ $os -ne "linux" ]]; then
   if $is_pip; then
     $(command -v pip) install dist/*.whl
   elif $is_pip3; then
