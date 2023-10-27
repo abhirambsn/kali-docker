@@ -32,9 +32,9 @@ get_os() {
   fi
 }
 
-$is_pip = 0
-$is_pip3 = 0
-$is_pipx = 0
+is_pip = 0
+is_pip3 = 0
+is_pipx = 0
 
 # Check if required dependencies exist
 command_exists git
@@ -64,16 +64,16 @@ $poetry_path build # Build Dependencies
 
 echo "OS -> $os"
 if [[ $os -ne "linux" ]]; then
-  if $is_pip; then
+  if [ $is_pip -eq 1 ]; then
     $(command -v pip) install dist/*.whl
-  elif $is_pip3; then
+  elif [ $is_pip3 -eq 1 ]; then
     $(command -v pip3) install dist/*.whl
   else
     echo "$RED[x] pip or pip3 not found, install either of them to continue$RESET"
     exit 1
   fi
 else
-  if $is_pipx; then
+  if [ $is_pipx -eq 1 ]; then
     $(command -v pipx) install dist/*.whl
   else
     echo "$RED[x] pipx not found, install it to continue$RESET"
