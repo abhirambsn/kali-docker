@@ -5,6 +5,10 @@ services:
     privileged: true
     hostname: kali
     restart: unless-stopped
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+    cap_add:
+      - "NET_ADMIN"
     volumes:
       - ~/.kali:/opt/devstorage:rw
     networks:
